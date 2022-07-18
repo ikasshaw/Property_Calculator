@@ -1,0 +1,587 @@
+#:kivy 2.1.0
+
+MainLayout:
+
+<MainLayout>:
+
+    orientation: "vertical"
+    spacing: "20dp"
+    padding: 10, 20, 10, 10
+    # canvas.before:
+    #     Color:
+    #         rgba: 0, 1, 1, 1
+    #     Line:
+    #         width: 2
+    #         rectangle: self.x, self.y, self.width, self.height
+
+    GridLayout:
+
+        cols: 4
+        spacing: "20dp"
+        padding: "15dp"
+        row_default_height: "30dp"
+        row_force_default: True
+        size_hint: 1, .3
+        height: 
+
+        # canvas.before:
+        #     Color:
+        #         rgba: 0, 1, 1, 1
+        #     Line:
+        #         width: 2
+        #         rectangle: self.x, self.y, self.width, self.height
+
+        
+
+        ################# FLUID SELECTION #####################
+
+        Label:
+            id: fluid_label
+            text: "Fluid"
+            # size_hint_x: .2
+
+
+        FloatLayout:
+            FluidsSpinner:
+                id: fluid_spinner
+                on_text: root.convert_given_properties()
+
+        Label:
+            text: "Units"
+            size_hint_x: .2
+
+        GridLayout:
+            # id: units_grid
+            cols: 2
+            ToggleButton:
+                allow_no_selection: False   
+                id: units_radio_si
+                group: "units_radio"
+                text: "SI"
+                state: "down"
+                use_handles: True
+                on_press: 
+                    # root.convert_given_properties()
+                    root.convert_given_properties()
+                    root.previous_units = "SI"
+
+            ToggleButton:
+                allow_no_selection: False   
+                id: units_radio_us
+                group: "units_radio"
+                text: "US"
+                
+                on_press: 
+                    # root.convert_given_properties()
+                    root.convert_given_properties()
+                    root.previous_units = "US"
+
+
+        ################# PROPERTY 1 #####################
+
+        Label:
+            text: "Property 1"
+            size_hint_x: .2
+            # min_width: "150dp"
+
+        FloatLayout:
+            PropertySpinner:
+                id: prop_1
+                on_text: root.convert_given_properties()
+
+        TextInput:
+            id: prop_1_input
+            text: "273.153"
+            multiline: False
+            write_tab: False
+            on_text_validate:
+                root.convert_given_properties()
+                
+        Label:
+            id: prop_1_units
+            text: "K"
+
+        ################# PROPERTY 2 #####################
+
+        Label:
+            text: "Property 2"
+            size_hint_x: .2
+
+
+        FloatLayout:
+            PropertySpinner:
+                id: prop_2
+                text: "P"
+                on_text: root.convert_given_properties()
+                size_hint_x: 1
+
+
+        TextInput:
+            id: prop_2_input
+            text: "101.325"
+            multiline: False
+            write_tab: False
+            on_text_validate:
+                root.convert_given_properties()
+                
+
+
+        Label:
+            id: prop_2_units
+            text: "KPa"
+            size_hint_x: .2
+
+        ################# WANTED PROPERTY #####################
+
+        Label:
+            text: "Wanted Property"
+            # size_hint_x: None
+            size_hint_x: .2
+
+
+        FloatLayout:
+            PropertySpinner:
+                id: prop_wanted
+                text: "H"
+                on_text: root.convert_given_properties()
+        Label:
+            id: prop_wanted_value
+            text: "Answer"
+            size_hint_x: .2
+
+        Label:
+            id: prop_wanted_units
+            text: "kJ/kg"
+
+    GridLayout:
+        # canvas.before:
+        #     Color:
+        #         rgba: 0, 1, 1, 1
+        #     Line:
+        #         width: 2
+        #         rectangle: self.x, self.y, self.width, self.height
+        cols: 9
+        spacing: "10dp"
+        padding: "15dp"
+        row_default_height: "25dp"
+        font_size: "9dp"
+        row_force_default: True
+        size_hint: 1, .35
+
+
+        
+    ######### ROW ##########
+        Trivial_Label: 
+            text: "Acentric:"
+        Trivial_Value: 
+            id: ACENTRIC
+            text: ""
+        Trivial_Units:
+            text: ""
+
+        Trivial_Label: 
+            text: "Gas Constant:"
+        Trivial_Value: 
+            id:GAS_CONSTANT
+            text: ""
+        Trivial_Units:
+            text: "J/mol/K"    
+            
+        ######### ROW ##########
+        Trivial_Label: 
+            text: "Molar Mass:"
+        Trivial_Value: 
+            id: MOLARMASS
+            text: ""
+        Trivial_Units:
+            text: "kg/mol"
+
+        Trivial_Label: 
+            text: "P-Crit:"
+        Trivial_Value: 
+            id: PCRIT
+            text: ""
+        Trivial_Units:
+            text: "Pa"        
+
+        ######### ROW ##########
+        Trivial_Label: 
+            text: "P-Max:"
+        Trivial_Value: 
+            id:PMAX
+            text: ""
+        Trivial_Units:
+            text: "Pa"
+            
+        Trivial_Label: 
+            text: "P-Min:"
+        Trivial_Value: 
+            id: PMIN
+            text: ""
+        Trivial_Units:
+            text: "Pa"
+
+        ######### ROW ##########
+        Trivial_Label: 
+            text: "P-Triple:"
+        Trivial_Value: 
+            id:PTRIPLE
+            text: ""
+        Trivial_Units:
+            text: "Pa"
+
+        Trivial_Label: 
+            text: "P-Reducing:"
+        Trivial_Value: 
+            id: P_REDUCING
+            text: ""
+        Trivial_Units:
+            text: "Pa"
+
+        ######### ROW ##########
+        Trivial_Label: 
+            text: "T-Crit:"
+        Trivial_Value: 
+            id:TCRIT
+            text: ""
+        Trivial_Units:
+            text: "K"
+
+        Trivial_Label: 
+            text: "T-Max:"
+        Trivial_Value: 
+            id: TMAX
+            text: ""
+        Trivial_Units:
+            text: "K"
+
+        ######### ROW ##########
+        Trivial_Label: 
+            text: "T-Min:"
+        Trivial_Value: 
+            id:TMIN
+            text: ""
+        Trivial_Units:
+            text: "K"
+
+        Trivial_Label: 
+            text: "T-Triple:"
+        Trivial_Value: 
+            id: TTRIPLE
+            text: ""
+        Trivial_Units:
+            text: "K"
+            
+        ######### ROW ##########
+        Trivial_Label: 
+            text: "T-Freeze:"
+        Trivial_Value: 
+            id:T_FREEZE
+            text: ""
+        Trivial_Units:
+            text: "K"
+
+        Trivial_Label: 
+            text: "T-Reducing:"
+        Trivial_Value: 
+            id: T_REDUCING
+            text: ""
+        Trivial_Units:
+            text: "K"
+
+        ######### ROW ##########
+
+        # Trivial_Label: 
+        #     text: "Fire Hazard"
+        # Trivial_Value: 
+        #     id: FH
+        #     text: ""
+
+        # Trivial_Label: 
+        #     text: ""
+        # Trivial_Value: 
+        #     id:FRACTION_MAX
+        #     text: ""
+
+        ######### ROW ##########
+        
+        # Trivial_Label: 
+        #     text: "PH:  "
+        # Trivial_Value: 
+        #     id: PH
+        #     text: ""
+        
+        # Trivial_Label: 
+        #     text: "Fraction Min"
+        # Trivial_Value: 
+        #     id: FRACTION_MIN
+        #     text: ""
+            
+            
+
+        ######### ROW ##########
+        # Trivial_Label: 
+        #     text: "ρ-Crit:  "
+        # Trivial_Value: 
+        #     id:RHOCRIT
+        #     text: ""
+            
+        # Trivial_Label: 
+        #     text: "ρ-Mass-Reducing:  "
+        # Trivial_Value: 
+        #     id: RHOMASS_REDUCING
+        #     text: ""
+
+        ######### ROW ##########
+
+        # Trivial_Label: 
+        #     text: "ρ-Molar-Critical:  "
+        # Trivial_Value: 
+        #     id: RHOMOLAR_CRITICAL
+        #     text: ""
+            
+        # Trivial_Label: 
+        #     text: "ρ-Molar-Reducing:  "
+        # Trivial_Value: 
+        #     id: RHOMOLAR_REDUCING
+        #     text: ""
+            
+        ######### ROW ##########            
+        
+        # Trivial_Label: 
+        #     text: "Dipole Moment:  "
+        # Trivial_Value: 
+        #     id: DIPOLE_MOMENT
+        #     text: ""
+
+    # ScrollView:
+    #     canvas.before:
+    #         Color:
+    #             rgba: 1, 0, 1, 1
+    #         Line:
+    #             width: 2
+    #             rectangle: self.x, self.y, self.width, self.height
+
+    #     Label:
+    #         id: error_output
+            
+    #         text: " "
+
+            
+    
+    Button:
+        id: submit_button
+        background_normal: ''
+        background_color: 14/255, 251/255, 121/255, 1
+        size_hint: 1, .15
+        text: "Submit"
+        on_press: root.submit_button_pressed()
+        # canvas.before:
+        #     Color:
+        #         rgba: 0, 0, 1, 1
+        #     Line:
+        #         width: 2
+        #         rectangle: self.x, self.y, self.width, self.height
+
+
+<FluidSelectionRow@BoxLayout> :
+    orientation: "horizontal"
+    height: "40dp"
+    size_hint_y: None
+
+    Label:
+        id: fluid_label
+        text: "Fluid"
+
+    FloatLayout:
+        FluidsSpinner:
+            id: fluid_spinner
+
+    Label:
+        text: "Units"
+
+    GridLayout:
+        # id: units_grid
+        cols: 2
+        ToggleButton:
+            allow_no_selection: False   
+            id: units_radio_si
+            group: "units_radio"
+            text: "SI"
+            state: "down"
+        ToggleButton:
+            allow_no_selection: False   
+            id: units_radio_us
+            group: "units_radio"
+            text: "US"
+
+<PropertiesGridLayout@GridLayout> :
+
+    cols: 4
+    spacing: "15dp"
+    padding: "15dp"
+    row_default_height: "27dp"
+    row_force_default: True
+
+    ################# PROPERTY 1 #####################
+
+    Label:
+        text: "Property 1"
+
+    FloatLayout:
+        PropertySpinner:
+            id: prop_1
+
+    TextInput:
+        id: prop_1_input
+        text: "Value 1"
+        multiline: False
+    Label:
+        id: "prop_1_units"
+        text: "Units"
+
+    ################# PROPERTY 2 #####################
+
+    Label:
+        text: "Property 2"
+
+    FloatLayout:
+        PropertySpinner:
+            id: prop_2
+
+    TextInput:
+        id: prop_2_input
+        text: "Value 2"
+
+    Label:
+        id: prop_2_units
+        text: "Units"
+
+    ################# WANTED PROPERTY #####################
+
+    Label:
+        text: "Wanted Property"
+
+    FloatLayout:
+        PropertySpinner:
+            id: prop_wanted
+
+    Label:
+        id: prop_wanted_input
+        text: "Answer"
+
+    Label:
+        id: prop_wanted_units
+        text: "Label 2"
+
+<MyDropDown@DropDown> :
+
+    size_hint: None, None
+    background_normal: ''
+    max_height: dp(44 * 10)
+    bar_width: "10dp"
+    bar_color: .211, .211, .211, .7
+    bar_inactive_color: 1, 0, 0, .5        
+    effect_cls: 'ScrollEffect'
+    scroll_type: ['bars', 'content']
+    smooth_scroll_end: 0
+
+<FluidsSpinner@Spinner> :
+    background_normal: ''
+    background_color: 25/254, 54/254, 77/254, 1
+    size_hint: 1, 1
+    pos_hint: {'center': (.5, .5)}
+    size: "200dp", "44dp"
+    dropdown_cls: 'MyDropDown'
+    text_autoupdate: True
+    values:'Air', '1-Butene', 'Acetone', 'Ammonia', 'Argon', 'Benzene', 'CarbonDioxide', 'CarbonMonoxide', 'CarbonylSulfide', 'CycloHexane', 'CycloPropane', 'Cyclopentane', 'D4', 'D5', 'D6', 'Deuterium', 'Dichloroethane', 'DiethylEther', 'DimethylCarbonate', 'DimethylEther', 'Ethane', 'Ethanol', 'EthylBenzene', 'Ethylene', 'EthyleneOxide', 'Fluorine', 'HFE143m', 'HeavyWater', 'Helium', 'Hydrogen', 'HydrogenChloride', 'HydrogenSulfide', 'IsoButane', 'IsoButene', 'Isohexane', 'Isopentane', 'Krypton', 'MD2M', 'MD3M', 'MD4M', 'MDM', 'MM', 'Methane', 'Methanol', 'MethylLinoleate', 'MethylLinolenate', 'MethylOleate', 'MethylPalmitate', 'MethylStearate', 'Neon', 'Neopentane', 'Nitrogen', 'NitrousOxide', 'Novec649', 'OrthoDeuterium', 'OrthoHydrogen', 'Oxygen', 'ParaDeuterium', 'ParaHydrogen', 'Propylene', 'Propyne', 'R11', 'R113', 'R114', 'R115', 'R116', 'R12', 'R123', 'R1233zd(E)', 'R1234yf', 'R1234ze(E)', 'R1234ze(Z)', 'R124', 'R1243zf', 'R125', 'R13', 'R134a', 'R13I1', 'R14', 'R141b', 'R142b', 'R143a', 'R152A', 'R161', 'R21', 'R218', 'R22', 'R227EA', 'R23', 'R236EA', 'R236FA', 'R245ca', 'R245fa', 'R32', 'R365MFC', 'R40', 'R404A', 'R407C', 'R41', 'R410A', 'R507A', 'RC318', 'SES36', 'SulfurDioxide', 'SulfurHexafluoride', 'Toluene', 'Water', 'Xenon', 'cis-2-Butene', 'm-Xylene', 'n-Butane', 'n-Decane', 'n-Dodecane', 'n-Heptane', 'n-Hexane', 'n-Nonane', 'n-Octane', 'n-Pentane', 'n-Propane', 'n-Undecane', 'o-Xylene', 'p-Xylene', 'trans-2-Butene'
+    option_cls: "FluidsSpinnerOptions"
+
+<PropertySpinner@Spinner> :
+
+    dropdown_cls: 'MyDropDown'
+    background_normal: ''
+    background_color: 25/254, 54/254, 77/254, 1
+    size_hint: 1, 1
+    pos_hint: {'center': (.5, .5)}
+    size: "100dp", "30dp"
+    text_autoupdate: True
+    values:'T', "SMASS", "UMASS", 'H', 'P', 'Q', 'D'
+    option_cls: "PropertySpinnerOptions"
+
+<FluidsSpinnerOptions@SpinnerOption> :
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+
+    background_normal: ''
+    background_color: 25/254, 54/254, 77/254, 1
+    height: "28dp"
+
+
+<PropertySpinnerOptions@SpinnerOption> :
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+    background_normal: ''
+    background_color: 25/254, 54/254, 77/254, 1
+    # border: 2,2,2,2
+    # border_color: 0, 0, 0, 1
+    
+<Trivial_Label@Label> :
+
+    size_hint: 1, 1
+    text_size: self.size
+    halign: "right"
+    valign: "top"
+    font_size: "12sp"
+
+    # canvas.before:
+    #     Color:
+    #         rgba: 1, 0, 0, 1
+    #     Line:
+    #         width: 1
+    #         rectangle: self.x, self.y, self.width, self.height
+
+<Trivial_Value@Label> :
+
+    size_hint: 1, 1
+    text_size: self.size
+    halign: "right"
+    valign: "top"
+    font_size: "12sp"
+
+    canvas.before:
+        Color:
+            rgba: 1, 0, 0, 1
+        Line:
+            width: 1
+            # rectangle: self.x, self.y, self.width, self.height
+            points: self.x, self.y, self.x + self.width, self.y
+    # canvas.before:
+    #     Color:
+    #         rgba: 1, 0, 0, 1
+    #     Line:
+    #         width: 1
+    #         rectangle: self.x, self.y, self.width, self.height
+<Trivial_Units@Label> :
+
+
+
+    size_hint: 1, 1
+    text_size: self.size
+    halign: "left"
+    valign: "top"
+    font_size: "12sp"
+    
+
+
+<ScrollEffectOption@ScrollEffectOption>
+    drag_threshold: 10
