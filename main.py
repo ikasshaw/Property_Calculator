@@ -77,9 +77,8 @@ class MainLayout(BoxLayout):
         T_FREEZE = ObjectProperty(None)
         T_REDUCING = ObjectProperty(None)
 
-
-    
         self.convert_given_properties()
+        self.submit_button_pressed()
 
     def convert(self,factor, value):
         return value * factor
@@ -173,7 +172,6 @@ class MainLayout(BoxLayout):
                     factor = 1
                     scale_factor = 1
                     units = " "
-
             return factor, scale_factor, units
 
         except Exception as e:
@@ -205,7 +203,10 @@ class MainLayout(BoxLayout):
                 elif kind == "D":
                     scale_factor = density_scaler
                     units = "kg/m^3"
-                elif kind == "Q":
+                elif kind == "V":
+                    scale_factor = 1
+                    units = "Pa s"
+                elif kind == "Q" or kind == "Z":
                     scale_factor = 1
                     units = " "
 
@@ -234,7 +235,10 @@ class MainLayout(BoxLayout):
                 elif kind == "D":
                     scale_factor = density_scaler
                     units = "lb/ft^3"
-                elif kind == "Q":
+                elif kind == "V":
+                    scale_factor = pressure_scaler * 144
+                    units = "psf s"
+                elif kind == "Q" or kind == "Z":
                     scale_factor = 1
                     units = " "
 
@@ -269,7 +273,7 @@ class MainLayout(BoxLayout):
             self.prop_1_val = self.convert(prop_1_scale_factor, float(self.ids.prop_1_input.text))
             self.prop_2_val = self.convert(prop_2_scale_factor, float(self.ids.prop_2_input.text))
 
-            self.submit_button_pressed()
+            # self.submit_button_pressed()
 
         except Exception as e:
             print(e)
@@ -284,7 +288,14 @@ class MainLayout(BoxLayout):
 
             wanted_value = conversion_factor * cp.CoolProp.PropsSI(self.prop_wanted_type,self.prop_1_type,self.prop_1_val,self.prop_2_type,self.prop_2_val,self.wantedFluid)
 
-            self.ids.prop_wanted_value.text = str(round(wanted_value, 3))
+            if wanted_value <= .01:
+                scientific_notation="{:.3e}".format(float(wanted_value))
+                wanted_value = scientific_notation
+                # print(scientific_notation)
+                self.ids.prop_wanted_value.text = wanted_value
+
+            else:
+                self.ids.prop_wanted_value.text = str(round(wanted_value, 3))
             self.ids.prop_wanted_units.text = units
 
             self.ids.ACENTRIC.text = self.set_trivial("ACENTRIC")
